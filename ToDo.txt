@@ -1,0 +1,5 @@
+*logError function.
+
+*agregar idioma por configuración
+
+*if exists build directory delete... DONE!
