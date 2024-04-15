@@ -2,4 +2,7 @@
 
 *agregar idioma por configuración
 
-*if exists build directory delete... DONE!
+*modificar el script que prueba que una biblioteca 
+sea un módulo. Para que funcione para toda biblioteca.
+
+*if exists build directory delete... DONE FOR LINUX!
