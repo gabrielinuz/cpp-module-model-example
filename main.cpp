@@ -19,14 +19,6 @@ import lmModuleTest = "./lib/LanguageManagerModuleTest";
 
 int main()
 {
-    /**
-     * @brief BEFORE!
-     */
-    //// ILanguageManager* lm = lmModule.getInstanceAs<ILanguageManager*>();
-
-    /**
-     * @brief NOW!
-     */
     auto lm = lmModule.getInstanceAs<shared_ptr<ILanguageManager>>(); 
     cout << "Default LANG, HELLO_WORLD: " << lm->translate("HELLO_WORLD") << endl;
     cout << endl;
