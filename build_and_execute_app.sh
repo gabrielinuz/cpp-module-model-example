@@ -14,14 +14,14 @@ cp ./test/libtest/libtest.sh ./build/lib
 cp -r ./resources/lang/ ./build/
 
 ##Compilo las librerías
-g++ -Wall -std=c++11 -fPIC -I./include/ -c ./src/LangReader.cpp
-g++ -Wall -std=c++11 -fPIC -I./include/ -c ./src/LanguageManagerModule.cpp
-g++ -Wall -std=c++11 -fPIC -I./include/ -c ./src/LanguageManagerModuleTest.cpp
-g++ -shared -Wall -std=c++11 -fPIC -I./include/ LangReader.o LanguageManagerModule.o -o ./build/lib/LanguageManagerModule.so
-g++ -shared -Wall -std=c++11 -fPIC -I./include/ LangReader.o LanguageManagerModuleTest.o -o ./build/lib/LanguageManagerModuleTest.so
+g++ -Wall -std=c++17 -fPIC -I./include/ -c ./src/LangReader.cpp
+g++ -Wall -std=c++17 -fPIC -I./include/ -c ./src/LanguageManagerModule.cpp
+g++ -Wall -std=c++17 -fPIC -I./include/ -c ./src/LanguageManagerModuleTest.cpp
+g++ -shared -Wall -std=c++17 -fPIC -I./include/ LangReader.o LanguageManagerModule.o -o ./build/lib/LanguageManagerModule.so
+g++ -shared -Wall -std=c++17 -fPIC -I./include/ LangReader.o LanguageManagerModuleTest.o -o ./build/lib/LanguageManagerModuleTest.so
 
 ## Compilo el Binario
-g++ -Wall -std=c++11 -ldl -I./include -I./include/vendors/cppset/ main.cpp -o ./build/app.bin 
+g++ -Wall -std=c++17 -ldl -I./include -I./include/vendors/cppset/ main.cpp -o ./build/app.bin 
 
 ## Borro código objeto
 rm ./*.o

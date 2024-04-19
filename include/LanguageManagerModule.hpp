@@ -20,11 +20,11 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include <ILanguageManager.hpp>
+#include <LanguageManager.hpp>
 #include <LangReader.hpp>
 using namespace std;
 
-class LanguageManagerModule : public ILanguageManager
+class LanguageManagerModule : public LanguageManager
 {
     public:
         LanguageManagerModule();
@@ -38,5 +38,5 @@ class LanguageManagerModule : public ILanguageManager
         string _language;
 };
 
-extern "C" shared_ptr<ILanguageManager> getInstanceOf(string typeId);
+extern "C" shared_ptr<LanguageManager> getInstanceOf(string typeId);
 #endif

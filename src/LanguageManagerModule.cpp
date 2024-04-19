@@ -71,29 +71,29 @@ string LanguageManagerModule::translate(string key)
 /**
  * @brief Get the Instance object
  * 
- * @return shared_ptr<ILanguageManager> 
+ * @return shared_ptr<LanguageManager> 
  */
-shared_ptr<ILanguageManager> getInstanceOf(string typeId) 
+shared_ptr<LanguageManager> getInstanceOf(string typeId) 
 {
     /**
      * @brief DEBUG
      * 
      */
     cout << "Type ID Parameter Requested: " << typeId << endl;
-    cout << "Type ID Local Provided: " << typeid(shared_ptr<ILanguageManager>).name() << endl;
+    cout << "Type ID Local Provided: " << typeid(shared_ptr<LanguageManager>).name() << endl;
 
     /**
      * @brief This...
      * 
      */
-    return ( typeid(shared_ptr<ILanguageManager>).name() == typeId ) ?
+    return ( typeid(shared_ptr<LanguageManager>).name() == typeId ) ?
                  make_shared<LanguageManagerModule>() : nullptr;
                  
     /**
      * @brief ...instead this:
      * 
      */
-    // if (typeid(shared_ptr<ILanguageManager>).name() == typeId )
+    // if (typeid(shared_ptr<LanguageManager>).name() == typeId )
     // { 
     //     return make_shared<LanguageManagerModule>(); 
     // }

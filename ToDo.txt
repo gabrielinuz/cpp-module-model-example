@@ -1,8 +1,20 @@
-*logError function.
+*logError function. CONSTRUIR MÓDULO PARA RESOLVER LA BITACORA Y DEVOLUCIÓN DE ERRORES.
 
 *agregar idioma por configuración
 
 *modificar el script que prueba que una biblioteca 
 sea un módulo. Para que funcione para toda biblioteca.
+
+*armar script de compilación para windows.
+
+
+Agregar patrón factory en la evolución de diseño y trabajar con interfaces
+tanto en el caso de LanguageManager como en el del ModuleLoader.//Es necesario?
+
+
+DONE:
+
+Revisar el problema de las variables globales para hacer el import:
+//auto lm = ModuleFactory::create("LanguageManager");// SOLUCIÓN std::unique_ptr!!!!
 
 *if exists build directory delete... DONE FOR LINUX!

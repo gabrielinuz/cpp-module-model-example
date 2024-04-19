@@ -19,11 +19,11 @@
 
 #include <iostream>
 #include <memory>
-#include <ILanguageManagerTest.hpp>
+#include <LanguageManagerTest.hpp>
 #include <LangReader.hpp>
 using namespace std;
 
-class LanguageManagerModuleTest : public ILanguageManagerTest
+class LanguageManagerModuleTest : public LanguageManagerTest
 {
     public:
         LanguageManagerModuleTest();
@@ -37,5 +37,5 @@ class LanguageManagerModuleTest : public ILanguageManagerTest
         string _language;
 };
 
-extern "C" shared_ptr<ILanguageManagerTest> getInstanceOf(string typeId);
+extern "C" shared_ptr<LanguageManagerTest> getInstanceOf(string typeId);
 #endif

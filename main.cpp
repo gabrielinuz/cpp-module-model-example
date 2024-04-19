@@ -10,16 +10,21 @@
  * 
  */
 #include <iostream>
-#include <ILanguageManager.hpp>
+#include <LanguageManager.hpp>
 #include <ModuleLoader.hpp>
 
 using namespace std;
-import lmModule = "./lib/LanguageManagerModule";
-import lmModuleTest = "./lib/LanguageManagerModuleTest";
 
 int main()
 {
-    auto lm = lmModule.getInstanceAs<shared_ptr<ILanguageManager>>(); 
+    auto ml = make_unique<ModuleLoader>();
+    
+    /**
+     * @brief Test Good Module
+     * 
+     */
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>(); 
     cout << "Default LANG, HELLO_WORLD: " << lm->translate("HELLO_WORLD") << endl;
     cout << endl;
     cout << "-------------------------------------------------------------------------------" << endl;
@@ -27,8 +32,12 @@ int main()
 
     /**
      * @brief Test Wrong Module
+     * @attention ./lib/LanguageManagerModuleTest is not a LanguageManager
+     * @attention is a LanguageManagerTest.
+     * @endcode
      */
-    auto lmtest = lmModuleTest.getInstanceAs<shared_ptr<ILanguageManager>>();
+    ml->load("./lib/LanguageManagerModuleTest");
+    auto lmtest = ml->getInstanceAs<shared_ptr<LanguageManager>>();
     cout << "Default LANG, HELLO_WORLD: " << lmtest->translate("HELLO_WORLD") << endl;   
    
     /**

@@ -71,17 +71,17 @@ string LanguageManagerModuleTest::translate(string key)
 /**
  * @brief Get the Instance object
  * 
- * @return shared_ptr<ILanguageManagerTest> 
+ * @return shared_ptr<LanguageManagerTest> 
  */
-shared_ptr<ILanguageManagerTest> getInstanceOf(string typeId) 
+shared_ptr<LanguageManagerTest> getInstanceOf(string typeId) 
 {
     /**
      * @brief DEBUG
      * 
      */
     cout << "Type ID Parameter Requested: " << typeId << endl;
-    cout << "Type ID Local Provided: " << typeid(shared_ptr<ILanguageManagerTest>).name() << endl;
+    cout << "Type ID Local Provided: " << typeid(shared_ptr<LanguageManagerTest>).name() << endl;
 
-    return ( typeid(shared_ptr<ILanguageManagerTest>).name() == typeId )?
+    return ( typeid(shared_ptr<LanguageManagerTest>).name() == typeId )?
                  std::make_shared<LanguageManagerModuleTest>() : nullptr;
 }

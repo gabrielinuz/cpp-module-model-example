@@ -18,7 +18,7 @@ using namespace std;
 class ModuleLoader
 {
     private:
-        shared_ptr<SharedLibraryLoader> libraryLoader;
+        unique_ptr<SharedLibraryLoader> libraryLoader;
         bool isLoaded;
 
         void showError(string message, string message2 = "")
@@ -30,20 +30,7 @@ class ModuleLoader
     public:
         ModuleLoader()
         {
-            libraryLoader = make_shared<SharedLibraryLoader>();////NOT NEW
-        }
-        
-        /**
-         * @brief Construct a new Module Loader object
-         * with parameter const char* to able the syntax
-         * ModuleLoader ml = "./path/to/library" 
-         * 
-         * @param filePath 
-         */
-        ModuleLoader(const char* filePath)
-        {
-            libraryLoader = make_shared<SharedLibraryLoader>();////NOT NEW
-            isLoaded = libraryLoader->load(filePath);
+            libraryLoader = make_unique<SharedLibraryLoader>();
         }
 
         ~ModuleLoader()
@@ -86,8 +73,5 @@ class ModuleLoader
             return obj;        
         }
 };
-
-// typedef ModuleLoader import;
-using import = ModuleLoader;
 
 #endif // MODULE_LOADER_HPP
