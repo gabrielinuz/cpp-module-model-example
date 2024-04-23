@@ -21,26 +21,47 @@ using namespace std;
 
 int main()
 {
-    /**
-     * @brief Test Good Module
-     * 
-     */
-    ml->load("./lib/LanguageManagerModule");
-    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>(); 
-    cout << "Default LANG, HELLO_WORLD: " << lm->translate("HELLO_WORLD") << endl;
-    cout << endl;
-    cout << "-------------------------------------------------------------------------------" << endl;
-    cout << endl;
+    auto ml = make_unique<ModuleLoader>();
 
-    /**
-     * @brief Test Wrong Module
-     * @attention ./lib/LanguageManagerModuleTest is not a LanguageManager
-     * @attention is a LanguageManagerTest.
-     * @endcode
-     */
-    ml->load("./lib/LanguageManagerModuleTest");
-    auto lmtest = ml->getInstanceAs<shared_ptr<LanguageManager>>();
-    cout << "Default LANG, HELLO_WORLD: " << lmtest->translate("HELLO_WORLD") << endl;   
+    ml->load("./lib/ErrorLoggerModule");
+    auto errorLogger = ml->getInstanceAs<shared_ptr<Logger>>();
+
+    ml->load("./lib/LangReaderModule");
+    auto langReader = ml->getInstanceAs<shared_ptr<LoggeableConfigReader>>();
+
+    langReader->setLogger(errorLogger);
+
+    langReader->open("jerigonso.lang");
+    cout << "Last Log: " << errorLogger->getLastLog() << endl;
+
+    // langReader->open("jerigonso.pepe");
+    // cout << "Last Log: " << errorLogger->getLastLog() << endl;
+
+    // langReader->open("jerigonso.langu");
+    // cout << "Last Log: " << errorLogger->getLastLog() << endl;
+
+    // errorLogger->displayLastLog();
+
+    // /**
+    //  * @brief Test Good Module
+    //  * 
+    //  */
+    // ml->load("./lib/LanguageManagerModule");
+    // auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>(); 
+    // cout << "Default LANG, HELLO_WORLD: " << lm->translate("HELLO_WORLD") << endl;
+    // cout << endl;
+    // cout << "-------------------------------------------------------------------------------" << endl;
+    // cout << endl;
+
+    // /**
+    //  * @brief Test Wrong Module
+    //  * @attention ./lib/LanguageManagerModuleTest is not a LanguageManager
+    //  * @attention is a LanguageManagerTest.
+    //  * @endcode
+    //  */
+    // ml->load("./lib/LanguageManagerModuleTest");
+    // auto lmtest = ml->getInstanceAs<shared_ptr<LanguageManager>>();
+    // cout << "Default LANG, HELLO_WORLD: " << lmtest->translate("HELLO_WORLD") << endl;   
    
     /**
      * @brief Another use cases

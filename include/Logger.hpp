@@ -20,6 +20,7 @@ class Logger
         virtual void displayLogFile() = 0;
         virtual string getLastLog() = 0;
         virtual void displayLastLog() = 0;
+        virtual void displayLastLogAndExit() = 0;
 };
 
 #endif

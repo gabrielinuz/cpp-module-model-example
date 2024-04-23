@@ -21,11 +21,23 @@ LangReaderModule::~LangReaderModule()
     _close();
 }
 
-bool LangReaderModule::open( string fileName )
+bool LangReaderModule::open( string filePath )
 {
-    _fileInput.open(fileName.c_str());
+
+    if (!hasLangExtension(filePath))
+    {
+        _logger->log("Error: the file: " + filePath + ", does not have a .lang extension");
+        _logger->displayLastLogAndExit();
+    }
+
+    _fileInput.open(filePath.c_str());
     bool isCorruptFile = (!_fileInput.is_open() || !_fileInput.good()); 
-    if (isCorruptFile) _error("Error opening lang file");
+    if (isCorruptFile)
+    {
+        _logger->log("Error opening lang file: " + filePath);
+        // _logger->displayLastLogAndExit();
+    } 
+    
     return  !_fileInput ? false : true;
 }
 
@@ -51,6 +63,11 @@ string LangReaderModule::getValueOf(string key)
     return value ;
 }
 
+void LangReaderModule::setLogger(shared_ptr<Logger> logger) 
+{
+    _logger = logger;    
+}
+
 void LangReaderModule::_close()
 {
     _fileInput.close();
@@ -67,20 +84,6 @@ void LangReaderModule::_readFile()
     }
 }
 
-void LangReaderModule::_log(string message, string filePath)
-{
-    ofstream logFile;
-    logFile.open(filePath, ofstream::app);
-    logFile << message << endl;
-    logFile.close();
-}
-
-void LangReaderModule::_error(string message, string message2)
-{
-    cerr << message << ' ' << message2 << endl;
-    exit(EXIT_FAILURE);
-}
-
 /**
  * @brief Trim function with lambda
  * @link https://stackoverflow.com/questions/216823/how-to-trim-an-stdstring @endlink
@@ -94,8 +97,24 @@ void LangReaderModule::_trim(std::string &s)
             std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());  
 }
 
-shared_ptr<ConfigFileReader> getInstanceOf(string typeId) 
+shared_ptr<LoggeableConfigReader> getInstanceOf(string typeId) 
 {
-    return typeid(shared_ptr<ConfigFileReader>).name() == typeId ?
+    return typeid(shared_ptr<LoggeableConfigReader>).name() == typeId ?
                  make_shared<LangReaderModule>() : nullptr;    
+}
+
+bool LangReaderModule::hasLangExtension(const string& filePath) 
+{
+    bool result = false;
+    // Obtener la posición del último punto en la cadena
+    size_t dotPos = filePath.find_last_of(".");
+    if (dotPos != string::npos) 
+    {
+        // Obtener la subcadena después del último punto
+        string extension = filePath.substr(dotPos);
+        // Comparar la subcadena con ".lang"
+        result = (extension == ".lang");
+    }
+    // Si no hay punto en la cadena, no puede tener extensión ".lang"
+    return result;    
 }

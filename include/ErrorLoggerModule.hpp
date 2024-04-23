@@ -19,11 +19,12 @@ class ErrorLoggerModule : public Logger
         void displayLogFile();
         string getLastLog();
         void displayLastLog();
+        void displayLastLogAndExit();
 
     private:
         string _filePath;
         string _getFormattedTime(std::time_t time) const;
-        void _error(string message);
+        void _displayExitConsoleError(string message);
 };
 
 extern "C" shared_ptr<Logger> getInstanceOf(string typeId);

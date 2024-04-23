@@ -16,19 +16,28 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+
 //FOR TRIM LAMBDA FUNCTION
 #include <algorithm> 
-#include <ConfigFileReader.hpp> 
+
+#include <LoggeableConfigReader.hpp>
+#include <Logger.hpp>
 
 using namespace std;
 
-class LangReaderModule : public ConfigFileReader
+// class LangReaderModule : public ConfigFileReader, public Loggeable
+class LangReaderModule : public LoggeableConfigReader
 {
     public:
         LangReaderModule();
         ~LangReaderModule();
-        bool open( string fileName );
+        bool open( string filePath );
         string getValueOf( string key );
+
+        /**
+         * @brief Set the Logger object, required by Loggeable
+         */
+        void setLogger(shared_ptr<Logger> logger);
 
     private:
         ifstream _fileInput;
@@ -37,10 +46,12 @@ class LangReaderModule : public ConfigFileReader
         void _readFile();
         void _close();
         void _trim(std::string &s);
-        void _log(string message, string filePath = "log.txt");
-        void _error(string message, string message2 = "");
+
+        bool hasLangExtension(const string& filePath);
+
+        shared_ptr<Logger> _logger;
 };
 
-extern "C" shared_ptr<ConfigFileReader> getInstanceOf(string typeId);
+extern "C" shared_ptr<LoggeableConfigReader> getInstanceOf(string typeId);
 
 #endif // LANG_READER_HPP

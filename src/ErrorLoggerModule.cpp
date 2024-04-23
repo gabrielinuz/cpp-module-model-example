@@ -27,7 +27,7 @@ void ErrorLoggerModule::log(string detail)
     } 
     else 
     {
-        cerr << "Error al abrir el archivo " << _filePath << " para escribir." << endl;
+        _displayExitConsoleError("Error openning " + _filePath + " for reading");
     }
 }
 
@@ -45,42 +45,37 @@ void ErrorLoggerModule::displayLogFile()
     } 
     else 
     {
-        cerr << "Error al abrir el archivo " << _filePath << " para leer." << endl;
+        _displayExitConsoleError("Error openning " + _filePath + " for reading");
     }
 }
 
 string ErrorLoggerModule::getLastLog()
 {
+    ifstream fin(_filePath); // Abrir el archivo en modo de lectura
     string lastLog;
-    ifstream inFile(_filePath);
-    if (inFile.is_open()) 
+    if (fin.is_open()) 
     {
-        inFile.seekg(0, ios::end);
-        if (inFile.tellg() > 0) 
-        {
-            inFile.seekg(-1, ios::cur);
-            char ch;
-            // Skip newline characters until we find the beginning of the last line
-            do 
-            {
-                inFile.seekg(-2, ios::cur);
-                inFile.get(ch);
-            } while (ch != '\n' && inFile.tellg() > 0);
-            // Get the last line
-            getline(inFile, lastLog);
+        string line;
+        while (getline(fin, line)) { // Leer el archivo línea por línea
+            lastLog = line; // Almacenar la última línea leída
         }
-        inFile.close();
+        fin.close(); // Cerrar el archivo
     } 
     else 
     {
-        cerr << "Error al abrir el archivo " << _filePath << " para leer." << endl;
-    } 
-    return lastLog; 
+        _displayExitConsoleError("Error openning " + _filePath + " for reading");
+    }
+    return lastLog; // Devolver la última línea leída
 }
 
 void ErrorLoggerModule::displayLastLog()
 {
-    cerr << getLastLog() << endl;
+    cerr << "Last log: " << getLastLog() << endl;
+}
+
+void ErrorLoggerModule::displayLastLogAndExit()
+{
+    _displayExitConsoleError(getLastLog());
 }
 
 /**
@@ -93,9 +88,9 @@ string ErrorLoggerModule::_getFormattedTime(time_t time) const
     return ss.str();
 }
 
-void ErrorLoggerModule::_error(string message)
+void ErrorLoggerModule::_displayExitConsoleError(string message)
 {
-    cerr << message << endl;
+    cerr << "EXIT! - FATAL ERROR!: " << message << endl;
     exit(EXIT_FAILURE);
 }
 

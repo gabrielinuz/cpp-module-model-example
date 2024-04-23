@@ -32,7 +32,7 @@ class SharedLibraryLoader
         bool isFree;
         bool isLoaded;
 
-        void showError(string message, string message2 = "")
+        void displayFatalError(string message, string message2 = "")
         {
             cerr << message << ' ' << message2 << endl;
             exit(EXIT_FAILURE);
@@ -75,7 +75,7 @@ class SharedLibraryLoader
 
             //LEER DOCUMENTACION DE MICROSOFT
             (library) ? isLoaded = true : isLoaded = false;
-            if(!isLoaded) showError("Error: The library "+filePath+" could not be loaded!");     
+            if(!isLoaded) displayFatalError("Error: The library "+filePath+" could not be loaded!");     
             
             return library;
         }
@@ -91,11 +91,11 @@ class SharedLibraryLoader
                 #elif defined(_WIN32) || defined(WIN32)
                     symbol = (void*) GetProcAddress((HINSTANCE)library, name.c_str());
                 #endif // defined        
-                if(!symbol) showError("Error: Library symbol does not exist or cannot be obtained!");        
+                if(!symbol) displayFatalError("Error: Library symbol does not exist or cannot be obtained!");        
             }
             else
             {
-                showError("Error: Library is not loaded, can't get symbol");
+                displayFatalError("Error: Library is not loaded, can't get symbol");
             }
             
 
@@ -120,11 +120,6 @@ class SharedLibraryLoader
                     isFree ? isLoaded = false : isLoaded = true; 
                 #endif // defined
             }
-            // else
-            // {
-            //     logError("Error releasing library not loaded!");
-            // }
-
             return isFree;
         }
 };

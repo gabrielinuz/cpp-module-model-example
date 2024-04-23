@@ -5,18 +5,33 @@
 * https://opensource.org/licenses/MIT
 **/
 
-#ifndef MODULE_LOADER_HPP
-#define MODULE_LOADER_HPP
+#ifndef MODULE_CONF_READER_HPP
+#define MODULE_CONF_READER_HPP
 
 #include <string>
 #include <iostream>
 #include <memory>
-#include <SharedLibraryLoader.hpp>
 
 using namespace std;
 
-class ModuleLoader
+class ModuleConfReader
 {
+    private:
+        ifstream _fileInput;
+        string _bufferData ;
+
+        void _readFile();
+        void _close();
+        void _trim(std::string &s);
+
+        bool hasConfExtension(const string& filePath);
+
+    public:
+        ModuleConfReader();
+        ~ModuleConfReader();
+        bool open( string filePath );
+        string getValueOf( string key );
+
     private:
         unique_ptr<SharedLibraryLoader> libraryLoader;
         bool isLoaded;
@@ -28,12 +43,12 @@ class ModuleLoader
         }        
     
     public:
-        ModuleLoader()
+        ModuleConfReader()
         {
             libraryLoader = make_unique<SharedLibraryLoader>();
         }
 
-        ~ModuleLoader()
+        ~ModuleConfReader()
         {
         }
 
@@ -74,4 +89,4 @@ class ModuleLoader
         }
 };
 
-#endif // MODULE_LOADER_HPP
+#endif // MODULE_CONF_READER_HPP
