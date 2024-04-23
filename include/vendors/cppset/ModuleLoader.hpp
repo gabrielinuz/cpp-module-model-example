@@ -56,18 +56,18 @@ class ModuleLoader
 
                     if( obj == nullptr )
                     {
-                        showError("Error: The return type of module is not the same as the one requested!");
+                        showError("Module Loader Error: The return type of module is not the same as the one requested => ", string( typeid(ObjectType).name() ) );
                         cout << endl;
                     } 
                 }
                 else
                 {
-                    showError("Error: Function \"getInstanceOf(string)\" name does not exist in symbol table!");
+                    showError("Module Loader Error: Function \"getInstanceOf(string)\" name does not exist in symbol table!");
                 }
             }
             else
             {
-                showError("Error: Library is not loaded, can't get instance");
+                showError("Module Loader Error: Library is not loaded, can't get instance");
             }
             
             return obj;        

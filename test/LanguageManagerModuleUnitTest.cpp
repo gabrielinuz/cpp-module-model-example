@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
-#include <ILanguageManager.hpp>
+#include <LanguageManager.hpp>
 #include <ModuleLoader.hpp>
 #include <catch.hpp>
 #include <iostream>
@@ -8,16 +8,16 @@
 #include <string>
 using namespace std;
 
-/**@todo probar si esto es posible, sino va dentro del test:*/
-import languageManagerModule = "../lib/LanguageManagerModule";
+auto ml = make_unique<ModuleLoader>();
  
 TEST_CASE( "LanguageManager create instance", "[LanguageManager new]" ) 
 {
     // Arrange
-    ILanguageManager* lm = languageManagerModule.getInstanceAs<ILanguageManager*>();
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>();
     
     // Act
-    bool isILanguageManager = ( dynamic_cast<ILanguageManager*> (lm) != nullptr );
+    bool isILanguageManager = ( dynamic_pointer_cast<shared_ptr<LanguageManager>> (lm) != nullptr );
 
     // Assert
     REQUIRE( isILanguageManager == true );
@@ -26,7 +26,8 @@ TEST_CASE( "LanguageManager create instance", "[LanguageManager new]" )
 TEST_CASE( "Correct translation into default language", "[LanguageManager getTranslation]" )
 {
     // Arrange
-    ILanguageManager* lm = languageManagerModule.getInstanceAs<ILanguageManager*>();
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>();
  
     // Act
     string translation = lm->translate("HELLO_WORLD");
@@ -38,7 +39,8 @@ TEST_CASE( "Correct translation into default language", "[LanguageManager getTra
 TEST_CASE( "Correct translation into Spanish", "[LanguageManager getTranslation]" )
 {
     // Arrange
-    ILanguageManager* lm = languageManagerModule.getInstanceAs<ILanguageManager*>();
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>();
  
     // Act
     lm->setLanguage("esAR");
@@ -51,7 +53,8 @@ TEST_CASE( "Correct translation into Spanish", "[LanguageManager getTranslation]
 TEST_CASE( "Correct translation into English", "[LanguageManager getTranslation]" )
 {
     // Arrange
-    ILanguageManager* lm = languageManagerModule.getInstanceAs<ILanguageManager*>();
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>();
  
     // Act
     lm->setLanguage("enUS");
@@ -64,7 +67,8 @@ TEST_CASE( "Correct translation into English", "[LanguageManager getTranslation]
 TEST_CASE( "Correct translation into French", "[LanguageManager getTranslation]" )
 {
     // Arrange
-    ILanguageManager* lm = languageManagerModule.getInstanceAs<ILanguageManager*>();
+    ml->load("./lib/LanguageManagerModule");
+    auto lm = ml->getInstanceAs<shared_ptr<LanguageManager>>();
  
     // Act
     lm->setLanguage("frFR");

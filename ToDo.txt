@@ -7,14 +7,16 @@ sea un módulo. Para que funcione para toda biblioteca.
 
 *armar script de compilación para windows.
 
+*Try Catch en ModuleLoader para que continúe la ejecución
+
+*Revisar test hacer el bat de los tests
 
 Agregar patrón factory en la evolución de diseño y trabajar con interfaces
 tanto en el caso de LanguageManager como en el del ModuleLoader.//Es necesario?
 
+Implementar Properties
 
 DONE:
 
 Revisar el problema de las variables globales para hacer el import:
 //auto lm = ModuleFactory::create("LanguageManager");// SOLUCIÓN std::unique_ptr!!!!
-
-*if exists build directory delete... DONE FOR LINUX!

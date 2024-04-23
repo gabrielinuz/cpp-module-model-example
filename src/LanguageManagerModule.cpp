@@ -86,13 +86,21 @@ shared_ptr<LanguageManager> getInstanceOf(string typeId)
      * @brief This...
      * 
      */
-    return ( typeid(shared_ptr<LanguageManager>).name() == typeId ) ?
+    return typeid(shared_ptr<LanguageManager>).name() == typeId ?
                  make_shared<LanguageManagerModule>() : nullptr;
                  
     /**
      * @brief ...instead this:
      * 
      */
+    // shared_ptr<LanguageManager> instance = nullptr;
+    // if (typeid(shared_ptr<LanguageManager>).name() == typeId )
+    //     instance = make_shared<LanguageManagerModule>();
+    // return instance;
+    /**
+     * @brief ...or this:
+     * 
+     */    
     // if (typeid(shared_ptr<LanguageManager>).name() == typeId )
     // { 
     //     return make_shared<LanguageManagerModule>(); 

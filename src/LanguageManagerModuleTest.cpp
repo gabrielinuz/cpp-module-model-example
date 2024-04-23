@@ -82,6 +82,17 @@ shared_ptr<LanguageManagerTest> getInstanceOf(string typeId)
     cout << "Type ID Parameter Requested: " << typeId << endl;
     cout << "Type ID Local Provided: " << typeid(shared_ptr<LanguageManagerTest>).name() << endl;
 
-    return ( typeid(shared_ptr<LanguageManagerTest>).name() == typeId )?
+    return typeid(shared_ptr<LanguageManagerTest>).name() == typeId ?
                  std::make_shared<LanguageManagerModuleTest>() : nullptr;
+
+    /**
+     * @brief Another if mode:
+     * 
+     */
+    // shared_ptr<LanguageManagerTest> instance = nullptr;
+    
+    // if (typeid(shared_ptr<LanguageManagerTest>).name() == typeId )
+    //     instance = make_shared<LanguageManagerModuleTest>();
+    
+    // return instance;
 }

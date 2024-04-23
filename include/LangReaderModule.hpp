@@ -1,5 +1,5 @@
 /**
- * @file LangReader.hpp
+ * @file LangReaderModule.hpp
  * @author Gabriel Ferreira (gferreiragabriel@abc.gob.ar)
  * @brief Header of Reader of .lang files
  * @version 0.1
@@ -18,15 +18,16 @@
 #include <sstream>
 //FOR TRIM LAMBDA FUNCTION
 #include <algorithm> 
+#include <ConfigFileReader.hpp> 
 
 using namespace std;
 
-class LangReader
+class LangReaderModule : public ConfigFileReader
 {
     public:
-        LangReader();
-        virtual ~LangReader();
-        bool open( string fileName);
+        LangReaderModule();
+        ~LangReaderModule();
+        bool open( string fileName );
         string getValueOf( string key );
 
     private:
@@ -39,5 +40,7 @@ class LangReader
         void _log(string message, string filePath = "log.txt");
         void _error(string message, string message2 = "");
 };
+
+extern "C" shared_ptr<ConfigFileReader> getInstanceOf(string typeId);
 
 #endif // LANG_READER_HPP
