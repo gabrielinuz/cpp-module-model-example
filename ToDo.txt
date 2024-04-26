@@ -1,15 +1,18 @@
 CURRENT
-*TRES DISEÑO:
+*TRES DISEÑOS:
 Agregación
 Composición
-Composición Parametrizada
+Composición Parametrizada (ModuleConfReader)
     Interesante: se puede pasar como parámetro solo la ruta del módulo.
     Pero además más interesante: se puede definir un archivo de configuración 
     que levante los módulos necesarios como compuestos. ¡ME ENCANTA! 
     Hacer el ConfReader.hpp Validar tanto en el lang como el en conf la extensión.
     Analizar se hace falta un conf reader o es algo que tiene que resolver el ModuleLoader 
     o incluso que sea un modulo que puedan usar los módulos internamente. Quizá incluir todo
-    en el ModuleLoader haga que sea más simple su uso. Puede ser una instancia que se obtenga a través de él.
+    en el ModuleLoader haga que sea más simple su uso. Puede ser una instancia que 
+    se obtenga a través de él.
+    Algo interesante es componer el módulo con ... un error logger que administre 
+    los errores carga
 
 TODO:
 *agregar idioma por configuración
