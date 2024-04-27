@@ -10,6 +10,4 @@
 
 
 ## Compilo y ejecuto el binario de LangReaderTest
-./buildscripts/bash/04.errorloggertest.sh
-./buildscripts/bash/05.langreadertest.sh
-./buildscripts/bash/06.languagemanagertest.sh
+./buildscripts/bash/07.maintest.sh
