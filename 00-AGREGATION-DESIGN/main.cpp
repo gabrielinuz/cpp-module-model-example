@@ -11,16 +11,9 @@
  */
 #include <iostream>
 #include <ModuleLoader.hpp>
-#include<ConfigurableLanguageManager.hpp>
+#include <ConfigurableLanguageManager.hpp>
 #include <Logger.hpp>
 #include <LoggeableConfigReader.hpp>
-
-// #include <LanguageManager.hpp>
-// 
-
-// 
-// #include <LoggeableConfigReader.hpp>
-// #include <LangReaderModule.hpp>
 
 using namespace std;
 
