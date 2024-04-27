@@ -9,5 +9,5 @@
 ./buildscripts/bash/03.languagemanager.sh
 
 
-## Compilo y ejecuto el binario de LangReaderTest
+## Compilo y ejecuto el binario de maintest
 ./buildscripts/bash/07.maintest.sh
