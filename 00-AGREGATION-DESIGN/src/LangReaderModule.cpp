@@ -97,12 +97,6 @@ void LangReaderModule::_trim(std::string &s)
             std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());  
 }
 
-shared_ptr<LoggeableConfigReader> getInstanceOf(string typeId) 
-{
-    return typeid(shared_ptr<LoggeableConfigReader>).name() == typeId ?
-                 make_shared<LangReaderModule>() : nullptr;    
-}
-
 bool LangReaderModule::hasLangExtension(const string& filePath) 
 {
     bool result = false;
@@ -117,4 +111,10 @@ bool LangReaderModule::hasLangExtension(const string& filePath)
     }
     // Si no hay punto en la cadena, no puede tener extensión ".lang"
     return result;    
+}
+
+shared_ptr<LoggeableConfigReader> getInstanceOf(string typeId) 
+{
+    return typeid(shared_ptr<LoggeableConfigReader>).name() == typeId ?
+                 make_shared<LangReaderModule>() : nullptr;    
 }
