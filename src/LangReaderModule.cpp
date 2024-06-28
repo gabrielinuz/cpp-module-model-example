@@ -91,10 +91,15 @@ void LangReaderModule::_readFile()
  */
 void LangReaderModule::_trim(std::string &s)
 {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
-            std::not1(std::ptr_fun<int, int>(std::isspace))));
+    /*warning error C2039: 'ptr_fun': is not a member of 'std'*/
+    /*s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+        std::not1(std::ptr_fun<int, int>(std::isspace))));
     s.erase(std::find_if(s.rbegin(), s.rend(),
-            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());  
+        std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());*/  
+    
+    /*solved with lambda function
+     * https://stackoverflow-com.translate.goog/questions/44973435/stdptr-fun-replacement-for-c17?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es-419&_x_tr_pto=sc*/
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
 }
 
 bool LangReaderModule::hasLangExtension(const string& filePath) 
